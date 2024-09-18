@@ -78,13 +78,13 @@ with gr.Blocks(css=css) as demo:
         input_image = gr.Image(label="Input Image", type='numpy', elem_id='img-display-input')
         with gr.Column():
             processing_res_choice = gr.Radio(
-                    [
-                        ("Native", 0),
-                        ("Recommended", 768),
-                    ],
-                    label="Processing resolution",
-                    value=0,
-                )        
+                [
+                    ("Recommended (768)", 768),
+                    ("Native", 0),
+                ],
+                label="Processing resolution",
+                value=768,
+            )
             submit = gr.Button(value="Compute Depth and Normals")
         
     colored_depth_file  = gr.File(label="Colored Depth Image", elem_id="download")
