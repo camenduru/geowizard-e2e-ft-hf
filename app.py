@@ -121,7 +121,7 @@ with gr.Blocks(css=css) as demo:
             return None
 
         pil_image = Image.fromarray(image.astype('uint8'))
-        depth_pred, depth_colored, normal_pred, normal_colored = predict(pil_image, processing_res_choice, model_choice, current_model)
+        depth_pred, depth_colored, normal_pred, normal_colored = predict(pil_image, processing_res_choice)
     
         # Save depth and normals npy data
         tmp_npy_depth = tempfile.NamedTemporaryFile(suffix='.npy', delete=False)
