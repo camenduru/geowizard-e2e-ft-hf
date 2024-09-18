@@ -76,7 +76,7 @@ with gr.Blocks(css=css) as demo:
 
     with gr.Row():
         input_image = gr.Image(label="Input Image", type='numpy', elem_id='img-display-input')
-        with gr.Column:
+        with gr.Column():
             processing_res_choice = gr.Radio(
                     [
                         ("Native", 0),
