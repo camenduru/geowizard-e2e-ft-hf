@@ -1,5 +1,5 @@
 ---
-title: End-to-End Fine-Tuned Marigold for Depth
+title: End-to-End Fine-Tuned GeoWizard
 emoji: ⚡
 colorFrom: blue
 colorTo: green
