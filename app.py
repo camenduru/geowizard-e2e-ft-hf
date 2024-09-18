@@ -15,8 +15,8 @@ import tempfile
 from gradio_imageslider import ImageSlider
 from huggingface_hub import hf_hub_download
 
-from Geowizard.geowizard.models.geowizard_pipeline import DepthNormalEstimationPipeline
-from Geowizard.geowizard.models.unet_2d_condition import UNet2DConditionModel
+from GeoWizard.geowizard.models.geowizard_pipeline import DepthNormalEstimationPipeline
+from GeoWizard.geowizard.models.unet_2d_condition import UNet2DConditionModel
 from diffusers import DDIMScheduler, AutoencoderKL
 from transformers import CLIPImageProcessor, CLIPVisionModelWithProjection
 
