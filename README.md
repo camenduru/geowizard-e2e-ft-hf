@@ -7,6 +7,10 @@ sdk: gradio
 sdk_version: 4.44.0
 app_file: app.py
 pinned: false
+models:
+  - GonzaloMG/geowizard-e2e-ft
+preload_from_hub:
+  - GonzaloMG/geowizard-e2e-ft
 license: apache-2.0
 ---
 
