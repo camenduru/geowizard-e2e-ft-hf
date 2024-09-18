@@ -34,28 +34,20 @@ css = """
 }
 """
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
-dtype = torch.float32
-variant = None
-checkpoint_path = "GonzaloMG/marigold-e2e-ft-depth"
-unet         = UNet2DConditionModel.from_pretrained(checkpoint_path, subfolder="unet")   
-vae          = AutoencoderKL.from_pretrained(checkpoint_path, subfolder="vae")  
-text_encoder = CLIPTextModel.from_pretrained(checkpoint_path, subfolder="text_encoder")  
-tokenizer    = CLIPTokenizer.from_pretrained(checkpoint_path, subfolder="tokenizer") 
-scheduler    = DDIMScheduler.from_pretrained(checkpoint_path, timestep_spacing="trailing", subfolder="scheduler") 
-pipe = MarigoldPipeline.from_pretrained(pretrained_model_name_or_path = checkpoint_path,
-                                        unet=unet, 
-                                        vae=vae, 
-                                        scheduler=scheduler, 
-                                        text_encoder=text_encoder, 
-                                        tokenizer=tokenizer, 
-                                        variant=variant, 
-                                        torch_dtype=dtype, 
-                                        )
+vae = AutoencoderKL.from_pretrained(checkpoint_path, subfolder='vae')
+scheduler = DDIMScheduler.from_pretrained(checkpoint_path, timestep_spacing="trailing", subfolder='scheduler')
+image_encoder = CLIPVisionModelWithProjection.from_pretrained(checkpoint_path, subfolder="image_encoder")
+feature_extractor = CLIPImageProcessor.from_pretrained(checkpoint_path, subfolder="feature_extractor")
+unet = UNet2DConditionModel.from_pretrained(checkpoint_path, subfolder="unet")
+pipe = DepthNormalEstimationPipeline(vae=vae,
+                            image_encoder=image_encoder,
+                            feature_extractor=feature_extractor,
+                            unet=unet,
+                            scheduler=scheduler)
 pipe = pipe.to(DEVICE)
 pipe.unet.eval()
 
-
-title = "# End-to-End Fine-Tuned Marigold for Depth Estimation"
+title = "# End-to-End Fine-Tuned GeoWizard"
 description = """ Please refer to our [paper](https://arxiv.org/abs/2409.11355) and [GitHub](https://vision.rwth-aachen.de/diffusion-e2e-ft) for more details."""
     
 @spaces.GPU
