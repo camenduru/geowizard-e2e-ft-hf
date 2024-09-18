@@ -71,26 +71,22 @@ with gr.Blocks(css=css) as demo:
     gr.Markdown("### Depth and Normals Prediction demo")
 
     with gr.Row():
-        input_image = gr.Image(label="Input Image", type='numpy', elem_id='img-display-input')
-        processing_res_choice = gr.Radio(
-                [
-                    ("Native", 0),
-                    ("Recommended", 768),
-                ],
-                label="Processing resolution",
-                value=0,
-            )
-        model_choice = gr.Dropdown(
-            list(models.keys()), label="Select Model", value=list(models.keys())[0]
-        )
-
-    submit = gr.Button(value="Compute Depth and Normals")
-        
-    with gr.Row():
         depth_image_slider = ImageSlider(label="Depth Map with Slider View", elem_id='img-display-output', position=0.5)
         normal_image_slider = ImageSlider(label="Normal Map with Slider View", elem_id='normal-display-output', position=0.5)
 
-
+    with gr.Row():
+        input_image = gr.Image(label="Input Image", type='numpy', elem_id='img-display-input')
+        with gr.Column:
+            processing_res_choice = gr.Radio(
+                    [
+                        ("Native", 0),
+                        ("Recommended", 768),
+                    ],
+                    label="Processing resolution",
+                    value=0,
+                )        
+            submit = gr.Button(value="Compute Depth and Normals")
+        
     colored_depth_file  = gr.File(label="Colored Depth Image", elem_id="download")
     gray_depth_file     = gr.File(label="Grayscale Depth Map", elem_id="download")
     raw_depth_file      = gr.File(label="Raw Depth Data (.npy)", elem_id="download")
