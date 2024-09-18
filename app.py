@@ -36,6 +36,7 @@ css = """
 }
 """
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
+checkpoint_path = "GonzaloMG/geowizard-e2e-ft"
 vae = AutoencoderKL.from_pretrained(checkpoint_path, subfolder='vae')
 scheduler = DDIMScheduler.from_pretrained(checkpoint_path, timestep_spacing="trailing", subfolder='scheduler')
 image_encoder = CLIPVisionModelWithProjection.from_pretrained(checkpoint_path, subfolder="image_encoder")
