@@ -93,25 +93,6 @@ with gr.Blocks(css=css) as demo:
     colored_normal_file = gr.File(label="Colored Normal Image", elem_id="download")
     raw_normal_file     = gr.File(label="Raw Normal Data (.npy)", elem_id="download")
 
-    
-    # with gr.Row():
-    #     input_image = gr.Image(label="Input Image", type='numpy', elem_id='img-display-input')
-    #     depth_image_slider = ImageSlider(label="Depth Map with Slider View", elem_id='img-display-output', position=0.5)
-
-    # with gr.Row():
-    #     submit = gr.Button(value="Compute Depth")
-    #     processing_res_choice = gr.Radio(
-    #             [
-    #                 ("Recommended (768)", 768),
-    #                 ("Native", 0),
-    #             ],
-    #             label="Processing resolution",
-    #             value=768,
-    #         )
-
-    # gray_depth_file = gr.File(label="Grayscale depth map", elem_id="download",)
-    # raw_file = gr.File(label="Raw Depth Data (.npy)", elem_id="download")
-
     cmap = matplotlib.colormaps.get_cmap('Spectral_r')
 
     def on_submit(image, processing_res_choice):
@@ -149,24 +130,6 @@ with gr.Blocks(css=css) as demo:
             tmp_colored_normal.name,
             tmp_npy_normal.name
         )
-
-        # pil_image = Image.fromarray(image.astype('uint8'))
-        # depth_npy, depth_colored = predict_depth(pil_image, processing_res_choice)
-    
-        # # Save the npy data (raw depth map)
-        # tmp_npy_depth = tempfile.NamedTemporaryFile(suffix='.npy', delete=False)
-        # np.save(tmp_npy_depth.name, depth_npy)
-    
-        # # Save the grayscale depth map
-        # depth_gray = (depth_npy * 65535.0).astype(np.uint16)
-        # tmp_gray_depth = tempfile.NamedTemporaryFile(suffix='.png', delete=False)
-        # Image.fromarray(depth_gray).save(tmp_gray_depth.name, mode="I;16")
-    
-        # # Save the colored depth map
-        # tmp_colored_depth = tempfile.NamedTemporaryFile(suffix='.png', delete=False)
-        # depth_colored.save(tmp_colored_depth.name)
-   
-        # return [(image, depth_colored),  tmp_gray_depth.name, tmp_npy_depth.name]
 
     submit.click(on_submit, inputs=[input_image, processing_res_choice], outputs=[depth_image_slider,normal_image_slider,colored_depth_file,gray_depth_file,raw_depth_file,colored_normal_file,raw_normal_file])
 
